@@ -38,6 +38,7 @@ SocketCanReceiverNode::SocketCanReceiverNode(rclcpp::NodeOptions options)
   interface_ = this->declare_parameter("interface", "can0");
   use_bus_time_ = this->declare_parameter<bool>("use_bus_time", false);
   enable_fd_ = this->declare_parameter<bool>("enable_can_fd", false);
+  filter_id_ = this->declare_parameter("filter_id", "can_rx_odom");
   double interval_sec = this->declare_parameter("interval_sec", 0.01);
   this->declare_parameter("filters", "0:0");
   interval_ns_ = std::chrono::duration_cast<std::chrono::nanoseconds>(
@@ -69,7 +70,7 @@ LNI::CallbackReturn SocketCanReceiverNode::on_configure(const lc::State & state)
   RCLCPP_DEBUG(this->get_logger(), "Receiver successfully configured.");
 
   if (!enable_fd_) {
-    frames_pub_ = this->create_publisher<can_msgs::msg::Frame>("from_can_bus", 500);
+    frames_pub_ = this->create_publisher<can_msgs::msg::Frame>(filter_id_, 500);
   } else {
     fd_frames_pub_ =
       this->create_publisher<ros2_socketcan_msgs::msg::FdFrame>("from_can_bus_fd", 500);

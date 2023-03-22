@@ -32,7 +32,7 @@ def generate_launch_description():
     socket_can_receiver_node = LifecycleNode(
         package='ros2_socketcan',
         executable='socket_can_receiver_node_exe',
-        name='socket_can_receiver',
+        name='socket_can_receiver_odom',
         namespace=TextSubstitution(text=''),
         parameters=[{
             'interface': LaunchConfiguration('interface'),
