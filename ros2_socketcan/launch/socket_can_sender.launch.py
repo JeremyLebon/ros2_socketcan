@@ -37,8 +37,8 @@ def generate_launch_description():
         parameters=[{
             'interface': LaunchConfiguration('interface'),
             'enable_can_fd': LaunchConfiguration('enable_can_fd'),
-            'timeout_sec':
-            LaunchConfiguration('timeout_sec'),
+            'timeout_sec': LaunchConfiguration('timeout_sec'),
+            'node_name': LaunchConfiguration('node_name'),
         }],
         output='screen')
 
@@ -80,6 +80,7 @@ def generate_launch_description():
         DeclareLaunchArgument('timeout_sec', default_value='0.01'),
         DeclareLaunchArgument('auto_configure', default_value='true'),
         DeclareLaunchArgument('auto_activate', default_value='true'),
+        DeclareLaunchArgument('node_name', default_value='can_node'),
         socket_can_sender_node,
         socket_can_sender_configure_event_handler,
         socket_can_sender_activate_event_handler,

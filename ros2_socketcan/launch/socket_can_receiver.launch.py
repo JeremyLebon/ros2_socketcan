@@ -32,7 +32,7 @@ def generate_launch_description():
     socket_can_receiver_node = LifecycleNode(
         package='ros2_socketcan',
         executable='socket_can_receiver_node_exe',
-        name='socket_can_receiver',
+        name= LaunchConfiguration('node_name'),
         namespace=TextSubstitution(text=''),
         parameters=[{
             'interface': LaunchConfiguration('interface'),
@@ -41,7 +41,7 @@ def generate_launch_description():
             LaunchConfiguration('interval_sec'),
             'filters': LaunchConfiguration('filters'),
             'use_bus_time': LaunchConfiguration('use_bus_time'),
-            'filter_id': LaunchConfiguration('filter_id')
+            'filter_topic': LaunchConfiguration('filter_topic'),
         }],
         output='screen')
 
@@ -107,7 +107,8 @@ def generate_launch_description():
                                           'man1/candump.1.html'),
         DeclareLaunchArgument('auto_configure', default_value='true'),
         DeclareLaunchArgument('auto_activate', default_value='true'),
-        DeclareLaunchArgument('filter_id', default_value='can_rx_odom'),
+        DeclareLaunchArgument('filter_topic', default_value='test'),
+        DeclareLaunchArgument('node_name', default_value='can_node'),
         socket_can_receiver_node,
         socket_can_receiver_configure_event_handler,
         socket_can_receiver_activate_event_handler,
